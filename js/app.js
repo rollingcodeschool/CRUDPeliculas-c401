@@ -16,3 +16,5 @@ function cambiarTema(color){
     //guardar en Localstorage
     localStorage.setItem('tema', JSON.stringify(color));
 }
+
+// TAREA: cambiar el icono del navbar segun el tema seleccionado
