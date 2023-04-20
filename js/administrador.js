@@ -49,7 +49,9 @@ function prepararFormulario(e){
 
 function crearPelicula(){
     //validar el formulario
-    let nuevaPeli = new Pelicula('Super mario','alguna desc','-','url de imagen','aventura', 2023, 93,'EEUU','varios actores');
+    
+    //creo la peli
+    let nuevaPeli = new Pelicula(titulo.value, descripcion.value, director.value, imagen.value, genero.value, anio.value, duracion.value, pais.value, reparto.value);
     console.log(nuevaPeli);
     //guardar la peli en el array
     listaPeliculas.push(nuevaPeli)
