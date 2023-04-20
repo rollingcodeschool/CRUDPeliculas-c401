@@ -2,7 +2,31 @@ import Pelicula from "./classPelicula.js";
 
 //variables globales
 let formularioPelicula = document.getElementById('formPelicula');
-let listaPeliculas = [];
+
+//si quiero trabajar con una array de objetos normales
+// let listaPeliculas =  JSON.parse(localStorage.getItem('listaPeliculas')) || [];
+
+//si quiero trabajar con un array de objetos de tipo Pelicula
+let listaPeliculas =  localStorage.getItem('listaPeliculas');
+// si listaPeliculas esta vacio
+if(!listaPeliculas){
+    listaPeliculas = [];
+}else{
+    listaPeliculas = JSON.parse(listaPeliculas).map((pelicula) => 
+    new Pelicula(
+        pelicula.titulo, 
+        pelicula.descripcion, 
+        pelicula.director, 
+        pelicula.imagen, 
+        pelicula.genero, 
+        pelicula.anio, 
+        pelicula.duracion, 
+        pelicula.pais, 
+        pelicula.reparto)  
+    )
+}
+
+console.log(listaPeliculas)
 
 // manejadores de eventos
 formularioPelicula.addEventListener('submit', prepararFormulario);
