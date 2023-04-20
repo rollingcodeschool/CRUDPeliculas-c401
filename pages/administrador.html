@@ -254,14 +254,14 @@
                         id="titulo"
                         maxlength="30"
                         minlength="3"
-                        required
+                     
                       />
                     </div>
                     <div class="col-12">
                       <label for="descripcion" class="form-label"
                         >Descripción *</label
                       >
-                      <input
+                      <textarea
                         type="text"
                         class="form-control"
                         placeholder="Ej: Érase una vez en una ciudad..."
@@ -269,8 +269,7 @@
                         id="descripcion"
                         maxlength="1000"
                         minlength="3"
-                        required
-                      />
+                      ></textarea>
                     </div>
                     <div class="col-12">
                       <label for="imagen" class="form-label">Imágen *</label>
@@ -309,7 +308,7 @@
                         id="anio"
                         min="1"
                         max="10000"
-                        required
+                  
                       />
                     </div>
                     <div class="col-12">
@@ -322,7 +321,7 @@
                         id="duracion"
                         min="1"
                         max="500"
-                        required
+                  
                       />
                     </div>
                     <div class="col-12">
@@ -333,9 +332,18 @@
                         aria-label="pais"
                         placeholder="Ej: Argentina"
                         id="pais"
-                        minlength="3"
-                        maxlength="40"
-                        required
+                      
+                      />
+                    </div>
+                    <div class="col-12">
+                      <label for="director" class="form-label">Director</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        aria-label="director"
+                        placeholder="Ej: Steven Spielberg"
+                        id="director"
+                     
                       />
                     </div>
                     <div class="col-12">
@@ -348,7 +356,7 @@
                         id="reparto"
                         minlength="5"
                         maxlength="1000"
-                        required
+                    
                       />
                     </div>
                     <aside>

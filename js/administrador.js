@@ -2,6 +2,16 @@ import Pelicula from "./classPelicula.js";
 
 //variables globales
 let formularioPelicula = document.getElementById('formPelicula');
+let codigo = document.getElementById('codigo'),
+titulo = document.getElementById('titulo'),
+descripcion = document.getElementById('descripcion'),
+imagen = document.getElementById('imagen'),
+genero = document.getElementById('genero'),
+director = document.getElementById('director'),
+pais = document.getElementById('pais'),
+anio = document.getElementById('anio'),
+duracion = document.getElementById('duracion'),
+reparto = document.getElementById('reparto');
 
 //si quiero trabajar con una array de objetos normales
 // let listaPeliculas =  JSON.parse(localStorage.getItem('listaPeliculas')) || [];
