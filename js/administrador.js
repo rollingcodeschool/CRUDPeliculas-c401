@@ -51,7 +51,7 @@ function prepararFormulario(e) {
 
 function crearPelicula() {
   //validar el formulario
-  let resumeErrores = sumarioValidaciones(titulo.value);
+  let resumeErrores = sumarioValidaciones(titulo.value, descripcion.value, imagen.value, anio.value);
 
   if (resumeErrores.length === 0) {
     //creo la peli
