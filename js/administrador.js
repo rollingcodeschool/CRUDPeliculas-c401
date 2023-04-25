@@ -55,6 +55,7 @@ function crearPelicula() {
 
   if (resumeErrores.length === 0) {
     //creo la peli
+    mostrarAlert(false,'');
     let nuevaPeli = new Pelicula(
       titulo.value,
       descripcion.value,
@@ -73,9 +74,31 @@ function crearPelicula() {
     //guardar el array en localstorage
     localStorage.setItem("listaPeliculas", JSON.stringify(listaPeliculas));
     //limpiar el formulario
+      limpiarFormulario();
+    //mostrar un mensaje
+    Swal.fire(
+      'Good job!',
+      'You clicked the button!',
+      'success'
+    )
   }else{
-    let alerta = document.getElementById('alertMsjError');
+    //falla la validacion
+    mostrarAlert(true, resumeErrores)
+  }
+}
+
+
+function mostrarAlert(estado, resumeErrores){
+  //estado = true muestro el alert, caso contrario oculto
+  let alerta = document.getElementById('alertMsjError');
+  if(estado){
     alerta.className = 'alert alert-danger';
     alerta.innerHTML = resumeErrores
+  }else{
+    alerta.className = 'alert alert-danger d-none';
   }
+}
+
+function limpiarFormulario(){
+  formularioPelicula.reset();
 }
