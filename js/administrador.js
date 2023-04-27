@@ -26,6 +26,7 @@ if (!listaPeliculas) {
   listaPeliculas = JSON.parse(listaPeliculas).map(
     (pelicula) =>
       new Pelicula(
+        pelicula.codigo,
         pelicula.titulo,
         pelicula.descripcion,
         pelicula.director,
@@ -47,16 +48,16 @@ formularioPelicula.addEventListener("submit", prepararFormulario);
 cargaInicial();
 
 //funciones
-function cargaInicial(){
-  if(listaPeliculas.length > 0){
+function cargaInicial() {
+  if (listaPeliculas.length > 0) {
     //dibujar las filas de la tabla
-    listaPeliculas.map((pelicula, indice)=> crearFila(pelicula, indice + 1))
+    listaPeliculas.map((pelicula, indice) => crearFila(pelicula, indice + 1));
   }
   //le muestro el msj que no tengo elementos
 }
 
-function crearFila(pelicula, indice){
-  let tablaPelicula = document.querySelector('tbody');
+function crearFila(pelicula, indice) {
+  let tablaPelicula = document.querySelector("tbody");
   tablaPelicula.innerHTML += `<tr>
   <th scope="row">${indice}</th>
   <td>${pelicula.titulo}</td>
@@ -75,13 +76,12 @@ function crearFila(pelicula, indice){
       data-bs-target="#exampleModal"
     >
       <i class="bi bi-pencil-square"></i></button
-    ><button type="button" class="btn btn-danger mx-1">
+    ><button type="button" class="btn btn-danger mx-1" onclick="borrarPelicula('${pelicula.codigo}')">
       <i class="bi bi-x-square"></i>
     </button>
   </td>
-</tr>` 
+</tr>`;
 }
-
 
 function prepararFormulario(e) {
   e.preventDefault();
@@ -90,12 +90,19 @@ function prepararFormulario(e) {
 
 function crearPelicula() {
   //validar el formulario
-  let resumeErrores = sumarioValidaciones(titulo.value, descripcion.value, imagen.value, anio.value, genero.value);
+  let resumeErrores = sumarioValidaciones(
+    titulo.value,
+    descripcion.value,
+    imagen.value,
+    anio.value,
+    genero.value
+  );
 
   if (resumeErrores.length === 0) {
     //creo la peli
-    mostrarAlert(false,'');
+    mostrarAlert(false, "");
     let nuevaPeli = new Pelicula(
+      undefined,
       titulo.value,
       descripcion.value,
       director.value,
@@ -111,35 +118,52 @@ function crearPelicula() {
     listaPeliculas.push(nuevaPeli);
     console.log(listaPeliculas);
     //guardar el array en localstorage
-    localStorage.setItem("listaPeliculas", JSON.stringify(listaPeliculas));
+    guardarEnLocalstorage()
     //limpiar el formulario
-      limpiarFormulario();
+    limpiarFormulario();
     //mostrar un mensaje
     Swal.fire(
-      'Pelicula creada',
-      'La pelicula fue correctamente almacenada',
-      'success'
-    )
+      "Pelicula creada",
+      "La pelicula fue correctamente almacenada",
+      "success"
+    );
     //dibuja la fila
     crearFila(nuevaPeli, listaPeliculas.length);
-  }else{
+  } else {
     //falla la validacion
-    mostrarAlert(true, resumeErrores)
+    mostrarAlert(true, resumeErrores);
   }
 }
 
+function guardarEnLocalstorage(){
+  localStorage.setItem("listaPeliculas", JSON.stringify(listaPeliculas));
+}
 
-function mostrarAlert(estado, resumeErrores){
+function mostrarAlert(estado, resumeErrores) {
   //estado = true muestro el alert, caso contrario oculto
-  let alerta = document.getElementById('alertMsjError');
-  if(estado){
-    alerta.className = 'alert alert-danger';
-    alerta.innerHTML = resumeErrores
-  }else{
-    alerta.className = 'alert alert-danger d-none';
+  let alerta = document.getElementById("alertMsjError");
+  if (estado) {
+    alerta.className = "alert alert-danger";
+    alerta.innerHTML = resumeErrores;
+  } else {
+    alerta.className = "alert alert-danger d-none";
   }
 }
 
-function limpiarFormulario(){
+function limpiarFormulario() {
   formularioPelicula.reset();
+}
+
+window.borrarPelicula = (codigo)=>{
+  //borrar del array un objeto
+  let posicionPelicula = listaPeliculas.findIndex((pelicula)=> pelicula.codigo === codigo);
+  console.log(posicionPelicula)
+  listaPeliculas.splice(posicionPelicula,1);
+  //actualizar el localstorage
+  guardarEnLocalstorage();
+  //borrar la fila de la tabla
+  let tablaPelicula = document.querySelector("tbody");
+  tablaPelicula.removeChild(tablaPelicula.children[posicionPelicula])
+  //todo agregar una funcion que actualice el primer td de cada fila con la cantidad de elementos del array
+  
 }
