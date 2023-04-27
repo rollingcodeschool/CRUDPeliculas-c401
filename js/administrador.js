@@ -50,15 +50,15 @@ cargaInicial();
 function cargaInicial(){
   if(listaPeliculas.length > 0){
     //dibujar las filas de la tabla
-    listaPeliculas.map((pelicula)=> crearFila(pelicula))
+    listaPeliculas.map((pelicula, indice)=> crearFila(pelicula, indice + 1))
   }
   //le muestro el msj que no tengo elementos
 }
 
-function crearFila(pelicula){
+function crearFila(pelicula, indice){
   let tablaPelicula = document.querySelector('tbody');
   tablaPelicula.innerHTML += `<tr>
-  <th scope="row">1</th>
+  <th scope="row">${indice}</th>
   <td>${pelicula.titulo}</td>
   <td class="text-truncate ancho pe-5">
     ${pelicula.descripcion}
