@@ -118,7 +118,7 @@ function crearPelicula() {
     listaPeliculas.push(nuevaPeli);
     console.log(listaPeliculas);
     //guardar el array en localstorage
-    guardarEnLocalstorage()
+    guardarEnLocalstorage();
     //limpiar el formulario
     limpiarFormulario();
     //mostrar un mensaje
@@ -135,7 +135,7 @@ function crearPelicula() {
   }
 }
 
-function guardarEnLocalstorage(){
+function guardarEnLocalstorage() {
   localStorage.setItem("listaPeliculas", JSON.stringify(listaPeliculas));
 }
 
@@ -154,16 +154,32 @@ function limpiarFormulario() {
   formularioPelicula.reset();
 }
 
-window.borrarPelicula = (codigo)=>{
-  //borrar del array un objeto
-  let posicionPelicula = listaPeliculas.findIndex((pelicula)=> pelicula.codigo === codigo);
-  console.log(posicionPelicula)
-  listaPeliculas.splice(posicionPelicula,1);
-  //actualizar el localstorage
-  guardarEnLocalstorage();
-  //borrar la fila de la tabla
-  let tablaPelicula = document.querySelector("tbody");
-  tablaPelicula.removeChild(tablaPelicula.children[posicionPelicula])
-  //todo agregar una funcion que actualice el primer td de cada fila con la cantidad de elementos del array
-  
-}
+window.borrarPelicula = (codigo) => {
+  Swal.fire({
+    title: "¿Esta seguro de eliminar la pelicula?",
+    text: "No puedes revertir posteriormente este paso",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Borrar",
+    cancelButtonText: "Cancelar",
+  }).then((result) => {
+    console.log(result);
+    if (result.isConfirmed) {
+      //aqui agrego mi codigo
+      //borrar del array un objeto
+      let posicionPelicula = listaPeliculas.findIndex(
+        (pelicula) => pelicula.codigo === codigo
+      );
+      listaPeliculas.splice(posicionPelicula, 1);
+      //actualizar el localstorage
+      guardarEnLocalstorage();
+      //borrar la fila de la tabla
+      let tablaPelicula = document.querySelector("tbody");
+      tablaPelicula.removeChild(tablaPelicula.children[posicionPelicula]);
+      //todo agregar una funcion que actualice el primer td de cada fila con la cantidad de elementos del array
+      Swal.fire("Pelicula eliminada", "La pelicula seleccionada fue eliminada correctamente", "success");
+    }
+  });
+};
