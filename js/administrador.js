@@ -116,10 +116,12 @@ function crearPelicula() {
       limpiarFormulario();
     //mostrar un mensaje
     Swal.fire(
-      'Good job!',
-      'You clicked the button!',
+      'Pelicula creada',
+      'La pelicula fue correctamente almacenada',
       'success'
     )
+    //dibuja la fila
+    crearFila(nuevaPeli, listaPeliculas.length);
   }else{
     //falla la validacion
     mostrarAlert(true, resumeErrores)
