@@ -13,7 +13,8 @@ let codigo = document.getElementById("codigo"),
   anio = document.getElementById("anio"),
   duracion = document.getElementById("duracion"),
   reparto = document.getElementById("reparto");
-let modalPelicula = new bootstrap.Modal(document.getElementById('modalAdministrarPelicula')); 
+let modalPelicula = new bootstrap.Modal(document.getElementById('modalAdministrarPelicula'));
+let verificarCrearPelicula = true; //  verificarCrearPelicula = true entonces creo la pelicula, cuando sea false tengo que editar la pelicula
 
 //si quiero trabajar con una array de objetos normales
 // let listaPeliculas =  JSON.parse(localStorage.getItem('listaPeliculas')) || [];
@@ -85,7 +86,11 @@ function crearFila(pelicula, indice) {
 
 function prepararFormulario(e) {
   e.preventDefault();
-  crearPelicula();
+  if(verificarCrearPelicula){
+    crearPelicula();
+  }else{
+    editarPelicula();
+  }
 }
 
 function crearPelicula() {
@@ -201,4 +206,25 @@ window.prepararPelicula = (codigoBuscado)=>{
   reparto.value = peliculaBuscada.reparto;
   director.value = peliculaBuscada.director;
   duracion.value = peliculaBuscada.duracion;
+  //cambio la variable para editar una peli en el submit
+  verificarCrearPelicula = false;
+}
+
+function editarPelicula(){
+  console.log('aqui tengo que editar la pelicula');
+  //buscar la posicion en el array de peliculas, de la peli que coincida con el codigo
+  let posicionPelicula = listaPeliculas.findIndex((pelicula)=> pelicula.codigo === codigo.value);
+  console.log(posicionPelicula);
+  //modificar los datos
+  listaPeliculas[posicionPelicula].titulo = titulo.value;
+  listaPeliculas[posicionPelicula].descripcion = descripcion.value;
+  listaPeliculas[posicionPelicula].imagen = imagen.value;
+  listaPeliculas[posicionPelicula].genero = genero.value;
+  listaPeliculas[posicionPelicula].pais = pais.value;
+  listaPeliculas[posicionPelicula].anio = anio.value;
+  listaPeliculas[posicionPelicula].reparto = reparto.value;
+  listaPeliculas[posicionPelicula].director = director.value;
+  listaPeliculas[posicionPelicula].duracion = duracion.value;
+  //actualizar el localstorage
+  guardarEnLocalstorage();
 }
