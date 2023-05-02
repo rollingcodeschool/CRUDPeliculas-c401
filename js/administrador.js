@@ -227,4 +227,21 @@ function editarPelicula(){
   listaPeliculas[posicionPelicula].duracion = duracion.value;
   //actualizar el localstorage
   guardarEnLocalstorage();
+  //actualizar los datos de la tabla
+  let tablaPelicula = document.querySelector("tbody");
+  // console.log(tablaPelicula.children[posicionPelicula].children[1]);
+  tablaPelicula.children[posicionPelicula].children[1].innerHTML = titulo.value;
+  tablaPelicula.children[posicionPelicula].children[2].innerHTML = descripcion.value;
+  tablaPelicula.children[posicionPelicula].children[3].innerHTML = imagen.value;
+  tablaPelicula.children[posicionPelicula].children[4].innerHTML = genero.value;
+  //mostrar algun cartel
+  Swal.fire(
+    'Pelicula editada',
+    'La pelicula fue modificada correctamente',
+    'success'
+    )
+  //limpiar Formulario
+    limpiarFormulario();
+  //cerrar la ventana modal
+  modalPelicula.hide();
 }
