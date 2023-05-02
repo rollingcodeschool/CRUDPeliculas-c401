@@ -13,6 +13,7 @@ let codigo = document.getElementById("codigo"),
   anio = document.getElementById("anio"),
   duracion = document.getElementById("duracion"),
   reparto = document.getElementById("reparto");
+let modalPelicula = new bootstrap.Modal(document.getElementById('modalAdministrarPelicula')); 
 
 //si quiero trabajar con una array de objetos normales
 // let listaPeliculas =  JSON.parse(localStorage.getItem('listaPeliculas')) || [];
@@ -72,8 +73,7 @@ function crearFila(pelicula, indice) {
     <button
       type="button"
       class="btn btn-warning mx-1"
-      data-bs-toggle="modal"
-      data-bs-target="#exampleModal"
+      onclick="prepararPelicula('${pelicula.codigo}')"
     >
       <i class="bi bi-pencil-square"></i></button
     ><button type="button" class="btn btn-danger mx-1" onclick="borrarPelicula('${pelicula.codigo}')">
@@ -183,3 +183,22 @@ window.borrarPelicula = (codigo) => {
     }
   });
 };
+
+window.prepararPelicula = (codigoBuscado)=>{
+  console.log(codigo,'desde preparar pelicula');
+  //mostrar la ventana modal con los datos de la pelicula
+  modalPelicula.show();
+  //buscar la pelicula y cargarla en el formulario
+  let peliculaBuscada = listaPeliculas.find((pelicula)=> pelicula.codigo === codigoBuscado );
+  console.log(peliculaBuscada)
+  codigo.value = peliculaBuscada.codigo;
+  titulo.value = peliculaBuscada.titulo;
+  descripcion.value = peliculaBuscada.descripcion;
+  genero.value = peliculaBuscada.genero;
+  anio.value = peliculaBuscada.anio;
+  imagen.value = peliculaBuscada.imagen;
+  pais.value = peliculaBuscada.pais;
+  reparto.value = peliculaBuscada.reparto;
+  director.value = peliculaBuscada.director;
+  duracion.value = peliculaBuscada.duracion;
+}

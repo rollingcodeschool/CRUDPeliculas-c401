@@ -53,7 +53,7 @@
             type="button"
             class="btn btn-outline-primary mx-2"
             data-bs-toggle="modal"
-            data-bs-target="#exampleModal"
+            data-bs-target="#modalAdministrarPelicula"
           >
             <i class="bi bi-clipboard-plus-fill"></i>
           </button>
@@ -79,7 +79,7 @@
         <!-- Modal -->
         <div
           class="modal fade"
-          id="exampleModal"
+          id="modalAdministrarPelicula"
           tabindex="-1"
           aria-labelledby="exampleModalLabel"
           aria-hidden="true"
@@ -103,12 +103,10 @@
                     <div class="col-12">
                       <label for="codigo" class="form-label">Código</label>
                       <input
-                        type="number"
+                        type="text"
                         class="form-control"
                         aria-label="codigo"
                         id="codigo"
-                        min="1"
-                        max="500"
                         disabled
                       />
                     </div>
