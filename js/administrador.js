@@ -15,6 +15,7 @@ let codigo = document.getElementById("codigo"),
   reparto = document.getElementById("reparto");
 let modalPelicula = new bootstrap.Modal(document.getElementById('modalAdministrarPelicula'));
 let verificarCrearPelicula = true; //  verificarCrearPelicula = true entonces creo la pelicula, cuando sea false tengo que editar la pelicula
+const btnAgregarPelicula = document.getElementById('btnAgregarPelicula');
 
 //si quiero trabajar con una array de objetos normales
 // let listaPeliculas =  JSON.parse(localStorage.getItem('listaPeliculas')) || [];
@@ -46,6 +47,7 @@ console.log(listaPeliculas);
 
 // manejadores de eventos
 formularioPelicula.addEventListener("submit", prepararFormulario);
+btnAgregarPelicula.addEventListener('click', mostrarModalPelicula);
 
 cargaInicial();
 
@@ -244,4 +246,13 @@ function editarPelicula(){
     limpiarFormulario();
   //cerrar la ventana modal
   modalPelicula.hide();
+}
+
+function mostrarModalPelicula(){
+  //limpiar el formulario
+  limpiarFormulario();
+  //mostrar modal
+  modalPelicula.show();
+  //cambiar la variable booleana
+ verificarCrearPelicula = true;
 }
